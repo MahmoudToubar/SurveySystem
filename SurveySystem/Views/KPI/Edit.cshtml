@@ -1,0 +1,77 @@
+﻿@model TblKPI
+
+
+@{
+}
+
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="container">
+        <h1>Modify KPI Information</h1>
+    </div>
+</div>
+
+
+<div class="container py-5">
+
+    @if (Model != null)
+    {
+        <form method="post">
+
+
+            <div class="mb-3">
+                <label class="form-label">Indicator NumberIndicator Number</label>
+                <input type="text" class="form-control" asp-for="KPIDNum" />
+                <span class="text-danger" asp-validation-for="KPIDNum"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Indicator Description</label>
+                <input type="text" class="form-control" asp-for="KPIDescription" />
+                <span class="text-danger" asp-validation-for="KPIDescription"></span>
+                
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Measuring Unit</label>
+                <select class="form-control" name="MeasurementUnit">
+                    <option value="true">Percentage</option>
+                    <option value="false">Number</option>
+                </select>
+               
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Department Num</label>
+                <input type="text" class="form-control" asp-for="DepNo" />
+                <span class="text-danger" asp-validation-for="DepNo"></span>
+               
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Targeted Value</label>
+                <input type="text" class="form-control" asp-for="TargetedValue" />
+                <span class="text-danger" asp-validation-for="TargetedValue"></span>
+                
+            </div>
+                    
+            <div class="mb-3">
+
+                <div class="d-flex">
+                    <button type="submit" class="btn btn-dark">Update</button>
+
+                    <button class="btn btn-danger ms-2" type="submit" asp-area="" asp-controller="KPI" asp-action="Delete">Delete</button>
+                </div>
+            </div>
+
+        </form>
+    }
+    else
+    {
+        <p>Not Found!</p>
+    }
+
+
+</div>
+
+
+

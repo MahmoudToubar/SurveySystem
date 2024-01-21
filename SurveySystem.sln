@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34003.232
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveySystem", "SurveySystem\SurveySystem.csproj", "{7150FD56-8E20-4CC7-B9A0-7AF57B3717EC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7150FD56-8E20-4CC7-B9A0-7AF57B3717EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7150FD56-8E20-4CC7-B9A0-7AF57B3717EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7150FD56-8E20-4CC7-B9A0-7AF57B3717EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7150FD56-8E20-4CC7-B9A0-7AF57B3717EC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2FE36F0D-02B4-4552-8707-875FBBFF7EE6}
+	EndGlobalSection
+EndGlobal

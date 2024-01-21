@@ -1,0 +1,151 @@
+﻿@model TblKPI
+@{
+   
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create KPI</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            function updateTotal() {
+                var total = 0;
+                $('#kpiTable tbody tr').not('#templateRow').each(function () {
+                    var value = $(this).find('.target-value').val();
+                    if (!isNaN(value) && value.trim() !== '') {
+                        total += parseFloat(value);
+                    }
+                });
+                $('#totalTargetedValue').val(total);
+            }
+
+            $('#addRow').click(function () {
+                var uniqueId = new Date().getTime();
+                var newRow = $('#templateRow').clone().removeAttr('id').show();
+                newRow.find('input').val('');
+                newRow.find('[id^="percentage"], [id^="number"]').each(function () {
+                    this.id += uniqueId;
+                    this.name += uniqueId;
+                });
+                newRow.find('.deleteRow').click(function () {
+                    $(this).closest('tr').remove();
+                    updateTotal();
+                });
+                newRow.find('.target-value').change(updateTotal);
+                $('#kpiTable tbody').append(newRow);
+                updateTotal();
+                return false;
+            });
+
+            $(document).ready(function () {
+                $('#yourFormId').submit(function () {
+                    var isPercentage = $('#MeasurementUnitCheckboxId').is(':checked');
+                    var targetedValue = parseInt($('#TargetedValueInputId').val());
+
+                    if (isPercentage && targetedValue > 100) {
+                        alert('Targeted value cannot be more than 100%.');
+                        return false; 
+                    }
+
+                    return true; 
+                });
+            });
+
+            $('#kpiTable').on('click', '.deleteRow', function () {
+                $(this).closest('tr').remove();
+                updateTotal();
+            });
+
+            $('#kpiTable').on('change', '.target-value', updateTotal);
+        });
+    </script>
+
+
+</head>
+<body>
+    <div class="bg-secondary bg-opacity-10 py-2">
+        <div class="container">
+            <h1>Add KPI Information</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        
+        @using (Html.BeginForm("Add", "KPI", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label for="DepartmentNum">Department Number</label>
+                @Html.EditorFor(model => model.DepNo, new { htmlAttributes = new { @class = "form-control", id = "DepartmentNum" } })
+                <span class="text-danger" asp-validation-for="DepNo"></span>
+            </div>
+
+            <table id="kpiTable" class="table">
+                <thead>
+                    <tr>
+                        <th>Indicator Number</th>
+                        <th>Indicator Description</th>
+                        <th>Measuring Unit</th>
+                        <th>Targeted Value</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="templateRow" @* style="display:none;" *@>
+                        <td>
+                            <input type="text" class="form-control" asp-for="KPIDNum" />
+                            <span class="text-danger" asp-validation-for="KPIDNum"></span>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" asp-for="KPIDescription" />
+                            <span class="text-danger" asp-validation-for="KPIDescription"></span>
+                        </td>
+                        <td>
+                            <div class="form-check">
+                                <select class="form-control" name="MeasurementUnit">
+                                    <option value="true">Percentage</option>
+                                    <option value="false">Number</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control target-value" asp-for="TargetedValue" />
+                            <span class="text-danger" asp-validation-for="TargetedValue"></span>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger deleteRow">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button id="addRow" class="btn btn-outline-secondary">Add New Row</button>
+
+            <div class="form-group">
+                <label for="totalTargetedValue">Total Targeted Value</label>
+                <input type="text" class="form-control" id="totalTargetedValue" readonly />
+            </div>
+
+            <button type="submit" class="btn btn-success">Save</button>
+            <button id="newEntry" class="btn btn-info">New</button>
+        }           
+        
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

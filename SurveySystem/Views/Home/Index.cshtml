@@ -1,0 +1,65 @@
+﻿@model List<TblKPI>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div class="container py-5">
+
+        <div class="mb-3">
+            <a asp-controller="KPI" asp-action="Add" class="btn btn-dark btn-lg">Add KPI</a>
+        </div>
+
+        @if (Model != null && Model.Any())
+    {
+            
+
+            <table id="kpiTable" class="table">
+                <thead>
+                    <tr>
+                        <th>Indicator Number</th>
+                        <th>Department Num</th>
+                        <th>Indicator Description</th>
+                        <th>Measuring Unit</th>
+                        <th>Targeted Value</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+            <tbody>
+                @foreach (var kpi in Model)
+                {
+                    <tr>
+                        <td>@kpi.KPIDNum</td>
+                        <td>@kpi.DepNo</td>
+                        <td>@kpi.KPIDescription</td>
+                            <td>
+                                @if (kpi.MeasurementUnit)
+                                {
+                                    @:Percentage
+                                }
+                                else
+                                {
+                                    @:Number
+                                }
+                            </td>
+                        <td>@kpi.TargetedValue</td>                     
+                        <td>
+                            <a asp-area="" asp-controller="KPI" asp-action="Edit" asp-route-id="@kpi.KPIDNum" class="btn btn-primary">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            </table>
+            }
+        else
+        {
+        <p>Not Found!</p>
+        }         
+        
+    </div>
+</body>
+</html>
